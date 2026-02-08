@@ -66,10 +66,10 @@ http://localhost:8080
 
 Проектная документация находится в папке docs:
 
-- docs/test-plan.md
-- docs/test-cases.md
-- docs/test-report.md
-- docs/bug-report.md
+- [План тестирования](plan.md)
+- [Тест-кейсы](docs/test-cases.md)
+- [Отчёт о тестировании](docs/test-report.md)
+- [Отчёт о дефектах](docs/bug-report.md)
 
 ---
 
