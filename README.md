@@ -76,3 +76,7 @@ http://localhost:8080
 
 Проект создан в учебных целях в рамках курса «Автоматизация тестирования» Нетологии.  
 Разрешено свободное использование для обучения и демонстрации навыков.
+![алуре 1](https://github.com/user-attachments/assets/7bca4ce4-aa55-44f9-905c-0270a6d7c30f)
+![алуре 2](https://github.com/user-attachments/assets/6dba1b45-9a8a-43c4-be64-e1ec27205e63)
+
+
