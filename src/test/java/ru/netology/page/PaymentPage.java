@@ -1,8 +1,10 @@
 package ru.netology.page;
 
 import com.codeborne.selenide.SelenideElement;
+
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$$;
 import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selenide.*;
 
 public class PaymentPage {
 
@@ -13,6 +15,28 @@ public class PaymentPage {
     private final SelenideElement cvc = $("[placeholder='999']");
     private final SelenideElement continueButton = $$("button.button").findBy(text("Продолжить"));
 
+    // --- Ошибки под полями ---
+    private SelenideElement cardNumberError() {
+        return cardNumber.closest(".input").$(".input__sub");
+    }
+
+    private SelenideElement monthError() {
+        return month.closest(".input").$(".input__sub");
+    }
+
+    private SelenideElement yearError() {
+        return year.closest(".input").$(".input__sub");
+    }
+
+    private SelenideElement ownerError() {
+        return owner.closest(".input").$(".input__sub");
+    }
+
+    private SelenideElement cvcError() {
+        return cvc.closest(".input").$(".input__sub");
+    }
+
+    // --- Заполнение формы ---
     public void fillForm(String card, String mm, String yy, String name, String code) {
         cardNumber.setValue(card);
         month.setValue(mm);
@@ -21,5 +45,28 @@ public class PaymentPage {
         cvc.setValue(code);
         continueButton.click();
     }
+
+    // --- Геттеры для тестов ---
+    public SelenideElement getCardNumberError() {
+        return cardNumberError();
+    }
+
+    public SelenideElement getMonthError() {
+        return monthError();
+    }
+
+    public SelenideElement getYearError() {
+        return yearError();
+    }
+
+    public SelenideElement getOwnerError() {
+        return ownerError();
+    }
+
+    public SelenideElement getCvcError() {
+        return cvcError();
+    }
 }
+
+
 
