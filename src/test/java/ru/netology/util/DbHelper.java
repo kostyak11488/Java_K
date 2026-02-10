@@ -8,8 +8,17 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class DbHelper {
-
     private static final QueryRunner runner = new QueryRunner();
+
+    @SneakyThrows
+    public static void clearTables() {
+        var connection = getConnection();
+
+        runner.update(connection, "DELETE FROM order_entity;");
+        runner.update(connection, "DELETE FROM payment_entity;");
+        runner.update(connection, "DELETE FROM credit_request_entity;");
+    }
+
 
     @SneakyThrows
     private static Connection getConnection() {
@@ -22,22 +31,11 @@ public class DbHelper {
 
     @SneakyThrows
     public static String getPaymentStatus() {
-        var sql = "SELECT status FROM payment_entity ORDER BY created DESC LIMIT 1;";
-        return runner.query(getConnection(), sql, new ScalarHandler<>());
-    }
+        var orderSql = "SELECT payment_id FROM order_entity ORDER BY created DESC LIMIT 1;";
+        var paymentId = runner.query(getConnection(), orderSql, new ScalarHandler<>());
 
-    @SneakyThrows
-    public static String getCreditStatus() {
-        var sql = "SELECT status FROM credit_request_entity ORDER BY created DESC LIMIT 1;";
-        return runner.query(getConnection(), sql, new ScalarHandler<>());
-    }
-
-    @SneakyThrows
-    public static void clearTables() {
-        var conn = getConnection();
-        runner.update(conn, "DELETE FROM payment_entity;");
-        runner.update(conn, "DELETE FROM credit_request_entity;");
-        runner.update(conn, "DELETE FROM order_entity;");
+        var statusSql = "SELECT status FROM payment_entity WHERE transaction_id = ?;";
+        return runner.query(getConnection(), statusSql, new ScalarHandler<>(), paymentId);
     }
 }
 
