@@ -10,6 +10,10 @@ public class DataHelper {
 
     private static final Faker faker = new Faker(new Locale("en"));
 
+    // -----------------------------
+    // Карты
+    // -----------------------------
+
     public static String getApprovedCard() {
         return "1111 2222 3333 4444";
     }
@@ -21,6 +25,30 @@ public class DataHelper {
     public static String getRandomCard() {
         return faker.finance().creditCard().replaceAll("-", " ");
     }
+
+    public static String getShortCardNumber() {
+        return "1111 2222 3333 444";
+    }
+
+    public static String getLongCardNumber() {
+        return "1111 2222 3333 4444 55";
+    }
+
+    public static String getCardLetters() {
+        return "ABCD EFGH IJKL MNOP";
+    }
+
+    public static String getCardSymbols() {
+        return "1111 **** #### 4444";
+    }
+
+    public static String getZerosCard() {
+        return "0000 0000 0000 0000";
+    }
+
+    // -----------------------------
+    // Месяц
+    // -----------------------------
 
     public static String getValidMonth() {
         return LocalDate.now().plusMonths(1).format(DateTimeFormatter.ofPattern("MM"));
@@ -34,6 +62,22 @@ public class DataHelper {
         return "13";
     }
 
+    public static String getOneDigitMonth() {
+        return "5";
+    }
+
+    public static String getMonthLetters() {
+        return "AB";
+    }
+
+    public static String getMonthSymbols() {
+        return "@#";
+    }
+
+    // -----------------------------
+    // Год
+    // -----------------------------
+
     public static String getValidYear() {
         return LocalDate.now().plusYears(1).format(DateTimeFormatter.ofPattern("yy"));
     }
@@ -42,7 +86,23 @@ public class DataHelper {
         return LocalDate.now().minusYears(1).format(DateTimeFormatter.ofPattern("yy"));
     }
 
-    public static String getOwner() {
+    public static String getTooFarYear() {
+        return "35"; // больше +5 лет от текущего
+    }
+
+    public static String getYearLetters() {
+        return "AB";
+    }
+
+    public static String getYearSymbols() {
+        return "@@";
+    }
+
+    // -----------------------------
+    // Владелец
+    // -----------------------------
+
+    public static String getValidOwner() {
         return faker.name().fullName().toUpperCase();
     }
 
@@ -58,7 +118,15 @@ public class DataHelper {
         return "@@@###";
     }
 
-    public static String getCVC() {
+    public static String getOneLetterOwner() {
+        return "A";
+    }
+
+    // -----------------------------
+    // CVC
+    // -----------------------------
+
+    public static String getValidCVC() {
         return faker.number().digits(3);
     }
 
@@ -74,4 +142,5 @@ public class DataHelper {
         return "000";
     }
 }
+
 

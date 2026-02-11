@@ -2,71 +2,73 @@ package ru.netology.page;
 
 import com.codeborne.selenide.SelenideElement;
 
+import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
-import static com.codeborne.selenide.Condition.text;
 
 public class PaymentPage {
 
-    private final SelenideElement cardNumber = $("[placeholder='0000 0000 0000 0000']");
-    private final SelenideElement month = $("[placeholder='08']");
-    private final SelenideElement year = $("[placeholder='22']");
-    private final SelenideElement owner = $$(".input__control").get(3);
-    private final SelenideElement cvc = $("[placeholder='999']");
-    private final SelenideElement continueButton = $$("button.button").findBy(text("Продолжить"));
+    // --- Поля формы ---
+    private final SelenideElement cardNumberField = $("[placeholder='0000 0000 0000 0000']");
+    private final SelenideElement monthField = $("[placeholder='08']");
+    private final SelenideElement yearField = $("[placeholder='22']");
+    private final SelenideElement ownerField = $$(".input__control").get(3);
+    private final SelenideElement cvcField = $("[placeholder='999']");
+    private final SelenideElement continueButton = $$(".button__content").findBy(text("Продолжить"));
 
     // --- Ошибки под полями ---
-    private SelenideElement cardNumberError() {
-        return cardNumber.closest(".input").$(".input__sub");
-    }
+    private final SelenideElement cardNumberError = cardNumberField.closest(".input").$(".input__sub");
+    private final SelenideElement monthError = monthField.closest(".input").$(".input__sub");
+    private final SelenideElement yearError = yearField.closest(".input").$(".input__sub");
+    private final SelenideElement ownerError = ownerField.closest(".input").$(".input__sub");
+    private final SelenideElement cvcError = cvcField.closest(".input").$(".input__sub");
 
-    private SelenideElement monthError() {
-        return month.closest(".input").$(".input__sub");
-    }
+    // --- Уведомления ---
+    private final SelenideElement successNotification = $(".notification_status_ok .notification__content");
+    private final SelenideElement errorNotification = $(".notification_status_error .notification__content");
 
-    private SelenideElement yearError() {
-        return year.closest(".input").$(".input__sub");
-    }
-
-    private SelenideElement ownerError() {
-        return owner.closest(".input").$(".input__sub");
-    }
-
-    private SelenideElement cvcError() {
-        return cvc.closest(".input").$(".input__sub");
-    }
-
-    // --- Заполнение формы ---
-    public void fillForm(String card, String mm, String yy, String name, String code) {
-        cardNumber.setValue(card);
-        month.setValue(mm);
-        year.setValue(yy);
-        owner.setValue(name);
-        cvc.setValue(code);
+    // --- Действия ---
+    public void fillForm(String card, String month, String year, String owner, String cvc) {
+        cardNumberField.setValue(card);
+        monthField.setValue(month);
+        yearField.setValue(year);
+        ownerField.setValue(owner);
+        cvcField.setValue(cvc);
         continueButton.click();
     }
 
-    // --- Геттеры для тестов ---
-    public SelenideElement getCardNumberError() {
-        return cardNumberError();
+    // --- Проверки ошибок ---
+    public void shouldShowCardNumberError(String expectedText) {
+        cardNumberError.shouldHave(text(expectedText));
     }
 
-    public SelenideElement getMonthError() {
-        return monthError();
+    public void shouldShowMonthError(String expectedText) {
+        monthError.shouldHave(text(expectedText));
     }
 
-    public SelenideElement getYearError() {
-        return yearError();
+    public void shouldShowYearError(String expectedText) {
+        yearError.shouldHave(text(expectedText));
     }
 
-    public SelenideElement getOwnerError() {
-        return ownerError();
+    public void shouldShowOwnerError(String expectedText) {
+        ownerError.shouldHave(text(expectedText));
     }
 
-    public SelenideElement getCvcError() {
-        return cvcError();
+    public void shouldShowCvcError(String expectedText) {
+        cvcError.shouldHave(text(expectedText));
+    }
+
+    // --- Проверки уведомлений ---
+    public void shouldShowSuccessNotification() {
+        successNotification.shouldHave(text("Операция одобрена Банком."));
+    }
+
+    public void shouldShowErrorNotification() {
+        errorNotification.shouldHave(text("Ошибка! Банк отказал в проведении операции."));
     }
 }
+
+
 
 
 
