@@ -2,7 +2,9 @@ package ru.netology.page;
 
 import com.codeborne.selenide.SelenideElement;
 
-import static com.codeborne.selenide.Condition.text;
+import java.time.Duration;
+
+import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
@@ -39,35 +41,38 @@ public class PaymentPage {
 
     // --- Проверки ошибок ---
     public void shouldShowCardNumberError(String expectedText) {
-        cardNumberError.shouldHave(text(expectedText));
+        cardNumberError.shouldBe(visible).shouldHave(text(expectedText));
     }
 
     public void shouldShowMonthError(String expectedText) {
-        monthError.shouldHave(text(expectedText));
+        monthError.shouldBe(visible).shouldHave(text(expectedText));
     }
 
     public void shouldShowYearError(String expectedText) {
-        yearError.shouldHave(text(expectedText));
+        yearError.shouldBe(visible).shouldHave(text(expectedText));
     }
 
     public void shouldShowOwnerError(String expectedText) {
-        ownerError.shouldHave(text(expectedText));
+        ownerError.shouldBe(visible).shouldHave(text(expectedText));
     }
 
     public void shouldShowCvcError(String expectedText) {
-        cvcError.shouldHave(text(expectedText));
+        cvcError.shouldBe(visible).shouldHave(text(expectedText));
     }
 
     // --- Проверки уведомлений ---
     public void shouldShowSuccessNotification() {
-        successNotification.shouldHave(text("Операция одобрена Банком."));
+        successNotification
+                .shouldBe(visible, Duration.ofSeconds(15))
+                .shouldHave(text("Операция одобрена Банком."));
     }
 
     public void shouldShowErrorNotification() {
-        errorNotification.shouldHave(text("Ошибка! Банк отказал в проведении операции."));
+        errorNotification
+                .shouldBe(visible, Duration.ofSeconds(15))
+                .shouldHave(text("Ошибка! Банк отказал в проведении операции."));
     }
 }
-
 
 
 

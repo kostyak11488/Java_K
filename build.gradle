@@ -36,7 +36,12 @@ allure {
     aspectjweaver = true
 }
 
-test {
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+tasks.withType(Test) {
     useJUnitPlatform()
+    systemProperty "file.encoding", "UTF-8"
 }
 

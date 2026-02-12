@@ -5,10 +5,12 @@ import com.github.javafaker.Faker;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
+import java.util.Random;
 
 public class DataHelper {
 
     private static final Faker faker = new Faker(new Locale("en"));
+    private static final Random random = new Random();
 
     // -----------------------------
     // Карты
@@ -27,19 +29,19 @@ public class DataHelper {
     }
 
     public static String getShortCardNumber() {
-        return "1111 2222 3333 444";
+        return faker.number().digits(15); // 15 цифр вместо 16
     }
 
     public static String getLongCardNumber() {
-        return "1111 2222 3333 4444 55";
+        return faker.number().digits(20); // слишком длинный номер
     }
 
     public static String getCardLetters() {
-        return "ABCD EFGH IJKL MNOP";
+        return faker.letterify("???? ???? ???? ????").toUpperCase();
     }
 
     public static String getCardSymbols() {
-        return "1111 **** #### 4444";
+        return "@@@@ #### **** !!!!";
     }
 
     public static String getZerosCard() {
@@ -63,11 +65,11 @@ public class DataHelper {
     }
 
     public static String getOneDigitMonth() {
-        return "5";
+        return String.valueOf(random.nextInt(9) + 1); // 1–9
     }
 
     public static String getMonthLetters() {
-        return "AB";
+        return faker.letterify("??").toUpperCase();
     }
 
     public static String getMonthSymbols() {
@@ -87,11 +89,11 @@ public class DataHelper {
     }
 
     public static String getTooFarYear() {
-        return "35"; // больше +5 лет от текущего
+        return LocalDate.now().plusYears(6).format(DateTimeFormatter.ofPattern("yy"));
     }
 
     public static String getYearLetters() {
-        return "AB";
+        return faker.letterify("??").toUpperCase();
     }
 
     public static String getYearSymbols() {
@@ -107,11 +109,11 @@ public class DataHelper {
     }
 
     public static String getInvalidOwnerCyrillic() {
-        return "ИВАН ИВАНОВ";
+        return faker.name().fullName().replaceAll("[A-Za-z]", "И"); // генерируем кириллицу
     }
 
     public static String getInvalidOwnerDigits() {
-        return "12345";
+        return faker.number().digits(5);
     }
 
     public static String getInvalidOwnerSymbols() {
@@ -119,7 +121,7 @@ public class DataHelper {
     }
 
     public static String getOneLetterOwner() {
-        return "A";
+        return faker.letterify("?").toUpperCase();
     }
 
     // -----------------------------
@@ -131,11 +133,11 @@ public class DataHelper {
     }
 
     public static String getInvalidCVC1Digit() {
-        return "1";
+        return faker.number().digits(1);
     }
 
     public static String getInvalidCVC2Digits() {
-        return "12";
+        return faker.number().digits(2);
     }
 
     public static String getInvalidCVC000() {
