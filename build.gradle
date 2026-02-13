@@ -27,7 +27,10 @@ dependencies {
     testCompileOnly 'org.projectlombok:lombok:1.18.30'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.30'
     implementation 'commons-dbutils:commons-dbutils:1.7'
+
+    // Allure
     testImplementation 'io.qameta.allure:allure-junit5:2.24.0'
+    testImplementation 'io.qameta.allure:allure-selenide:2.24.0'   // ← ДОБАВЛЕНО
 }
 
 allure {

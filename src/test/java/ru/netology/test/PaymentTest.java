@@ -2,14 +2,18 @@ package ru.netology.test;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import ru.netology.data.DataHelper;
+import ru.netology.helpers.AllureListener;
 import ru.netology.page.MainPage;
 import ru.netology.util.DbHelper;
 
 import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@ExtendWith(AllureListener.class)
 public class PaymentTest {
+    
 
     @BeforeEach
     void setup() {
