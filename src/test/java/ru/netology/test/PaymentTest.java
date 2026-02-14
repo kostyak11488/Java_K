@@ -1,5 +1,8 @@
 package ru.netology.test;
 
+import com.codeborne.selenide.logevents.SelenideLogger;
+import io.qameta.allure.selenide.AllureSelenide;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -11,9 +14,18 @@ import ru.netology.util.DbHelper;
 import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@ExtendWith(AllureListener.class)
 public class PaymentTest {
-    
+
+    @BeforeAll
+    static void setUpAll() {
+        SelenideLogger.addListener("AllureSelenide",
+                new AllureSelenide()
+                        .screenshots(true)
+                        .savePageSource(true)
+                        .includeSelenideSteps(true)
+        );
+    }
+
 
     @BeforeEach
     void setup() {
